@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.Weapon;
@@ -15,12 +16,17 @@ import java.util.Map;
 
 public class WanderingUndead extends Actor {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
+    Key key;
 
     public WanderingUndead() {
         super("Wandering Undead", 't', 100);
 
         //default damage should be 30
-        updateDamageMultiplier(6); //by default its 5 damage
+        updateDamageMultiplier(6); //by default its total-5 damage
+
+        //Wandering undead should have a key to begin with
+        key = new Key();
+        addItemToInventory(key);
 
         //ideally the undead should also have attack behavior ??
         //compare the play turn of WU with player
@@ -86,6 +92,12 @@ public class WanderingUndead extends Actor {
             }
         }
         return actions;
+    }
+
+    @Override
+    public String unconscious(Actor actor, GameMap map) {
+       key.getDropAction(this).execute(this,map);
+       return super.unconscious(this, map);
     }
 
 }

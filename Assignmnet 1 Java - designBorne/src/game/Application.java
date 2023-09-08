@@ -22,14 +22,14 @@ public class Application {
         World world = new World(new Display());
 
         FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(),
-                new Wall(), new Floor(), new Puddle(), new VoidPit(), new Graveyard());
+                new Wall(), new Floor(), new Puddle(), new VoidPit(), new Graveyard(), new Gate());
 
-        List<String> map = Arrays.asList(
+        List<String> abandonedVillage = Arrays.asList(
                 "...........................................................",
-                "...#######.........n.........................+.............",
+                "...#######...................................+.............",
                 "...#__.....................................................",
                 "...#..___#.................................................",
-                "...###.###................#######..............n...........",
+                "...###.###................#######.............=............",
                 "..........................#_____#..........................",
                 "........~~........+.......#_____#..........................",
                 ".........~~~..............###_###...................+......",
@@ -39,8 +39,26 @@ public class Application {
                 "~~~~~~....................................#..___#..........",
                 "~~~~~~~~+..............+..................#######..........");
 
-        GameMap gameMap = new GameMap(groundFactory, map);
-        world.addGameMap(gameMap);
+        List<String> burialGround = Arrays.asList(
+                "....=......+++++++........~~~~~~++....~~",
+                "...........++++++.........~~~~~~+.....~~",
+                "............++++...........~~~~~......++",
+                "............+.+.............~~~.......++",
+                "..........++~~~.......................++",
+                ".........+++~~~....#######...........+++",
+                ".........++++~.....#_____#.........+++++",
+                "..........+++......#_____#........++++++",
+                "..........+++......###_###.......~~+++++",
+                "..........~~.....................~~...++",
+                "..........~~~..................++.......",
+                "...........~~....~~~~~.........++.......",
+                "......~~....++..~~~~~~~~~~~......~......",
+                "....+~~~~..++++++++~~~~~~~~~....~~~.....",
+                "....+~~~~..++++++++~~~..~~~~~..~~~~~...."
+        );
+
+        GameMap gameMap1 = new GameMap(groundFactory, abandonedVillage);
+        world.addGameMap(gameMap1);
 
         for (String line : FancyMessage.TITLE.split("\n")) {
             new Display().println(line);
@@ -51,14 +69,20 @@ public class Application {
             }
         }
 
-        gameMap.at(23, 10).addActor(new WanderingUndead());
+        gameMap1.at(23, 10).addActor(new WanderingUndead());
+
+        //add burialGround map to the game's map
+
+        GameMap gameMap2 = new GameMap(groundFactory, abandonedVillage);
+        world.addGameMap(gameMap2);
+
 
         Player player = new Player("The Abstracted One", '@', 150);
-        world.addPlayer(player, gameMap.at(29, 5));
+        world.addPlayer(player, gameMap1.at(29, 5));
 
         // Create BroadSword and place it inside the building
         BroadSword broadsword = new BroadSword();
-        gameMap.at(28, 5).addItem(broadsword);
+        gameMap1.at(28, 5).addItem(broadsword);
 
         world.run();
     }

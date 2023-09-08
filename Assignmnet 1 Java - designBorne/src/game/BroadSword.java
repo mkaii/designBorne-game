@@ -14,9 +14,6 @@ public class BroadSword extends WeaponItem {
 
     private int focusTurnsRemaining;
 
-
-
-
     public BroadSword() {
         super("BroadSword", '1', 110, "slashes", 80);
         isFocusActive = false;
