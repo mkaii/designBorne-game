@@ -83,4 +83,8 @@ public class Player extends Actor {
         int staminaIncrease = Math.round(getStamina() * STAMINA_RECOVERY_RATE);
         modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, staminaIncrease);
     }
+
+    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
+        return new ActionList(new AttackAction(this,direction));
+    }
 }

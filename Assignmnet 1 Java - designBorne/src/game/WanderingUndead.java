@@ -19,6 +19,9 @@ public class WanderingUndead extends Actor {
     public WanderingUndead() {
         super("Wandering Undead", 't', 100);
 
+        //default damage should be 30
+        updateDamageMultiplier(6); //by default its 5 damage
+
         //ideally the undead should also have attack behavior ??
         //compare the play turn of WU with player
         //there is input acceptance there
@@ -37,6 +40,15 @@ public class WanderingUndead extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+
+        //check if the actions have an attack action:
+        for(Action action : actions)
+        {
+            if (action instanceof AttackAction) {
+                return action;
+            }
+        }
+
         for (Behaviour behaviour : behaviours.values()) {
             Action action = behaviour.getAction(this, map);
             if(action != null)

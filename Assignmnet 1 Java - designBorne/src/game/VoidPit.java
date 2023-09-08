@@ -12,7 +12,7 @@ public class VoidPit extends Ground {
     }
 
     //already true in super
-   /* public boolean canActorEnter(Actor actor) {
+    /* public boolean canActorEnter(Actor actor) {
         return true;
-    }*/
+        }*/
 }
