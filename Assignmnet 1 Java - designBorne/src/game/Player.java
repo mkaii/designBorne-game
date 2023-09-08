@@ -3,9 +3,15 @@ package game;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
+import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
+import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
+
+import java.util.List;
 
 /**
  * Class representing the Player.
@@ -15,6 +21,11 @@ import edu.monash.fit2099.engine.displays.Menu;
  *
  */
 public class Player extends Actor {
+
+    private static final int STARTING_STAMINA = 200;
+    private static final float STAMINA_RECOVERY_RATE = 0.01f;
+
+
     /**
      * Constructor.
      *
@@ -25,16 +36,48 @@ public class Player extends Actor {
     public Player(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.addCapability(Status.HOSTILE_TO_ENEMY);
+
+
+        this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(STARTING_STAMINA));
     }
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+
+        // Print player's hit points and stamina
+        display.println(this.name + ": " + this.getDisplayChar() + ": Hit-Points: " +
+                String.valueOf(this.getAttribute(BaseActorAttributes.HEALTH)) + " Stamina: " +
+                String.valueOf(this.getAttribute(BaseActorAttributes.STAMINA)));
+
         // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)
             return lastAction.getNextAction();
 
+        // no need to tick over items as game map ticks over them anyway
+
+        //increase stamina on each turn :
+        increaseStamina(); // Recover stamina by 1%
+
         // return/print the console menu
         Menu menu = new Menu(actions);
         return menu.showMenu(this, display);
+
+
+
+
+    }
+
+
+    public int getStamina() {
+        return this.getAttribute(BaseActorAttributes.STAMINA);
+    }
+
+    public void decreaseStamina(int amount) {
+        modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.DECREASE, amount);
+    }
+
+    public void increaseStamina() {
+        int staminaIncrease = Math.round(getStamina() * STAMINA_RECOVERY_RATE);
+        modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, staminaIncrease);
     }
 }

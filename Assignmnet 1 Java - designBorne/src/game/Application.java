@@ -56,6 +56,10 @@ public class Application {
         Player player = new Player("The Abstracted One", '@', 150);
         world.addPlayer(player, gameMap.at(29, 5));
 
+        // Create BroadSword and place it inside the building
+        BroadSword broadsword = new BroadSword();
+        gameMap.at(28, 5).addItem(broadsword);
+
         world.run();
     }
 }

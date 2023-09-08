@@ -6,7 +6,9 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.weapons.Weapon;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +17,7 @@ public class WanderingUndead extends Actor {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
 
     public WanderingUndead() {
-        super("Wandering Undead", 't', 1);
+        super("Wandering Undead", 't', 100);
         this.behaviours.put(999, new WanderBehaviour());
     }
 
@@ -50,7 +52,21 @@ public class WanderingUndead extends Actor {
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
-            actions.add(new AttackAction(this, direction));
+
+            boolean weaponFound = false;
+            //set the attack action with a weapon if it is there in the inventory
+            for(Item item : otherActor.getItemInventory())
+            {
+                if(item.getDisplayChar() == '1')
+                {
+                    actions.add(new AttackAction(this, direction, (Weapon) item));
+                    weaponFound = true;
+                }
+            }
+
+            if(!weaponFound) {
+                actions.add(new AttackAction(this, direction));
+            }
         }
         return actions;
     }
