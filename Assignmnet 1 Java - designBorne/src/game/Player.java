@@ -13,6 +13,8 @@ import edu.monash.fit2099.engine.displays.Menu;
 
 import java.util.List;
 
+import static game.VoidPit.PIT_DISPLAY;
+
 /**
  * Class representing the Player.
  * Created by:
@@ -53,7 +55,16 @@ public class Player extends Actor {
         if (lastAction.getNextAction() != null)
             return lastAction.getNextAction();
 
+
+
+        //check if present location is a pit
         // no need to tick over items as game map ticks over them anyway
+        if(map.locationOf(this).getGround().getDisplayChar() == VoidPit.PIT_DISPLAY)
+        {
+            return new CustomTerrainMoveAction();
+        }
+
+
 
         //increase stamina on each turn :
         increaseStamina(); // Recover stamina by 1%
@@ -61,9 +72,6 @@ public class Player extends Actor {
         // return/print the console menu
         Menu menu = new Menu(actions);
         return menu.showMenu(this, display);
-
-
-
 
     }
 

@@ -18,6 +18,11 @@ public class WanderingUndead extends Actor {
 
     public WanderingUndead() {
         super("Wandering Undead", 't', 100);
+
+        //ideally the undead should also have attack behavior ??
+        //compare the play turn of WU with player
+        //there is input acceptance there
+        //In WU it should be solely based on behaviors ??
         this.behaviours.put(999, new WanderBehaviour());
     }
 

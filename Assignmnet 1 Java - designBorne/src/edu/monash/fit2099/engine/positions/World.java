@@ -163,7 +163,8 @@ public class World {
 		//input is taken
 		Action action = actor.playTurn(actions, lastActionMap.get(actor), map, display);
 		lastActionMap.put(actor, action);
-		
+
+		//based on the input correct actions execute is called
 		String result = action.execute(actor, map);
 		display.println(result);
 	}
