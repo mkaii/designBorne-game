@@ -87,6 +87,7 @@ public class World {
 
 			// Tick over all the maps. For the map stuff.
 			for (GameMap gameMap : gameMaps) {
+				//this ticks all the location so spawning on graveyards could be controlled from here
 				gameMap.tick();
 			}
 

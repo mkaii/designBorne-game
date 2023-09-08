@@ -7,13 +7,8 @@ import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttribute;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
-
-import java.util.List;
-
-import static game.VoidPit.PIT_DISPLAY;
 
 /**
  * Class representing the Player.
@@ -61,7 +56,7 @@ public class Player extends Actor {
         // no need to tick over items as game map ticks over them anyway
         if(map.locationOf(this).getGround().getDisplayChar() == VoidPit.PIT_DISPLAY)
         {
-            return new CustomTerrainMoveAction();
+            return new VoidPitGroundMoveAction();
         }
 
 

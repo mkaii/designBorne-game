@@ -65,8 +65,7 @@ public class BroadSword extends WeaponItem {
     }
 
     @Override
-    public void tick(Location currentLocation, Actor actor) {
-        Player myPlayer = (Player) actor;
+    public void tick(Location currentLocation) {
         if (isFocusActive) {
             focusTurnsRemaining--;
             if (focusTurnsRemaining <= 0) {
