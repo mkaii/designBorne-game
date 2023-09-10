@@ -63,10 +63,10 @@ public class BroadSword extends WeaponItem {
     }
 
     @Override
-    public void tick(Location currentLocation) {
+    public void tick(Location currentLocation, Actor actor) {
         if (isFocusActive) {
             focusTurnsRemaining--;
-            if (focusTurnsRemaining <= 0) {
+            if (focusTurnsRemaining <0) {
                 deactivateFocus(); // Deactivate focus when turns run out
 
             }
