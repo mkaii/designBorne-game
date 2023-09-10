@@ -1,6 +1,9 @@
 package game.item;
 
+import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.items.Item;
+import game.KeyDropAction;
 
 public class Key extends Item {
     /***
@@ -11,5 +14,13 @@ public class Key extends Item {
      */
     public Key() {
         super("Key",'-', true);
+    }
+
+
+    @Override
+    public DropAction getDropAction(Actor actor) {
+        if(portable)
+            return new KeyDropAction(this);
+        return null;
     }
 }
