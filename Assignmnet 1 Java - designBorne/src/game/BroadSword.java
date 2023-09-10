@@ -36,23 +36,19 @@ public class BroadSword extends WeaponItem {
     public String activateFocus(Player myPlayer) {
         if (!isFocusActive) {
             isFocusActive = true;
-            updateDamageMultiplier(1.1f); // Increase damage multiplier by 10%
             updateHitRate(90); // Set hit rate to 90%
-
-
-        } else {
-            // If focus is already active, reset turns to 5 and increase damage multiplier by 10%
-            updateDamageMultiplier(1.1f);
         }
 
         focusTurnsRemaining = 5;
+        increaseDamageMultiplier(0.1f); // Increase damage multiplier by 10% each time
         myPlayer.decreaseStamina(Math.round(myPlayer.getStamina() * 0.2f)); // Reduce stamina by 20%
         return myPlayer  + " takes a deep breath and focuses all their might!";
     }
 
-    public void deactivateFocus() {
+    protected void deactivateFocus() {
         if (isFocusActive) {
             isFocusActive = false;
+            focusTurnsRemaining = 0;
             updateDamageMultiplier(1.0f); // Reset damage multiplier to 1.0f
             updateHitRate(ORIGINAL_HIT_RATE); // Reset hit rate to 80%
         }
