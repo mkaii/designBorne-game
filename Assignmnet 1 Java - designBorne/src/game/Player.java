@@ -45,9 +45,9 @@ public class Player extends Actor {
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 
         // Print player's hit points and stamina
-        display.println(this.name + ": " + this.getDisplayChar() + ": Hit-Points: " +
-                String.valueOf(this.getAttribute(BaseActorAttributes.HEALTH)) + " Stamina: " +
-                String.valueOf(this.getAttribute(BaseActorAttributes.STAMINA)));
+        display.println(this.name);
+        display.println("HP: "  + String.valueOf(this.getAttribute(BaseActorAttributes.HEALTH)) + "/" + String.valueOf(this.getAttributeMaximum(BaseActorAttributes.HEALTH)));
+        display.println("Stamina: "  + String.valueOf(this.getAttribute(BaseActorAttributes.STAMINA)) +  "/" + String.valueOf(this.getAttributeMaximum(BaseActorAttributes.STAMINA)));
 
         // Handle multi-turn Actions
         if (lastAction.getNextAction() != null)
