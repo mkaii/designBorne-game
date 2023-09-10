@@ -18,13 +18,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HollowMan extends Actor {
+public class HollowMan extends EnemyBase {
 
     HealingVial healingPotion;
     RefreshingFlask refreshingFlask;
 
 
-    private Map<Integer, Behaviour> behaviours = new HashMap<>();
+
     /**
      * The constructor of the Actor class.
      *
@@ -48,76 +48,14 @@ public class HollowMan extends Actor {
         addItemToInventory(healingPotion);
         addItemToInventory(refreshingFlask);
 
-        this.behaviours.put(999, new WanderBehaviour());
-    }
 
-    @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-
-        //check if the actions have an attack action:
-        for(Action action : actions)
-        {
-            if (action instanceof AttackAction) {
-                return action;
-            }
-        }
-
-        for (Behaviour behaviour : behaviours.values()) {
-            Action action = behaviour.getAction(this, map);
-            if(action != null)
-                return action;
-        }
-        return new DoNothingAction();
     }
 
 
-    /**
-     * The wandering undead can be attacked by any actor that has the HOSTILE_TO_ENEMY capability
-     *
-     * @param otherActor the Actor that might be performing attack
-     * @param direction  String representing the direction of the other Actor
-     * @param map        current GameMap
-     * @return
-     */
-    @Override
-    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-        ActionList actions = new ActionList();
-        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
 
-            boolean weaponFound = false;
-            //set the attack action with a weapon if it is there in the inventory
-            for(Item item : otherActor.getItemInventory())
-            {
-                if(item.getDisplayChar() == '1')
-                {
-                    actions.add(new AttackAction(this, direction, (Weapon) item));
-                    weaponFound = true;
-                }
-            }
 
-            if(!weaponFound) {
-                actions.add(new AttackAction(this, direction));
-            }
-        }
-        return actions;
-    }
 
-    @Override
-    public String unconscious(Actor actor, GameMap map) {
 
-        List<Action> actionsToExecute = new ArrayList<>();
 
-        for (Item item : new ArrayList<>(getItemInventory())) {  // Create a copy of the list to safely iterate over it
-            Action action = item.getDropAction(this);
-            if (action != null) {
-                actionsToExecute.add(action);
-            }
-        }
-
-        for (Action action : actionsToExecute) {
-            action.execute(this, map);
-        }
-        return super.unconscious(actor, map);
-    }
 
 }
