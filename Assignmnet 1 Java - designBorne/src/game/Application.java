@@ -49,6 +49,12 @@ public class Application {
         GameMap gameMap2 = new GameMap(groundFactory2, burialGround);
         world.addGameMap(gameMap2);
 
+        //add hollow man in Map 2
+        //add main player
+        HollowMan hollowMan1 = new HollowMan();
+        world.addPlayer(hollowMan1, gameMap2.at(1, 1));
+
+
         //--------------------------------------------------
 
 
@@ -81,13 +87,14 @@ public class Application {
             }
         }
 
-        gameMap1.at(23, 10).addActor(new WanderingUndead());
+        //enemy placement :
+        gameMap1.at(29, 7).addActor(new WanderingUndead());
 
         //add burialGround map to the game's map
 
 
 
-
+        //add main player
         Player player = new Player("The Abstracted One", '@');
         world.addPlayer(player, gameMap1.at(29, 5));
 
@@ -97,9 +104,17 @@ public class Application {
 
 
         //add a gate :
-        Gate gate = new Gate("Gate", '=', false);
-        gate.addSampleAction(new MoveActorAction(gameMap2.at(7, 2), "to Burial Ground!"));
-        gameMap1.at(1, 1).addItem(gate);
+        Gate gate1 = new Gate("Gate", '=', false);
+        gate1.addSampleAction(new MoveActorAction(gameMap2.at(7, 2), "to Burial Ground!"));
+
+        //add a gate :
+        Gate gate2 = new Gate("Gate", '=', false);
+        gate2.addSampleAction(new MoveActorAction(gameMap1.at(55, 2), "to Abandoned village!"));
+
+        gameMap1.at(30, 12).addItem(gate1);
+
+        gameMap2.at(1, 1).addItem(gate2);
+
 
         world.run();
     }
