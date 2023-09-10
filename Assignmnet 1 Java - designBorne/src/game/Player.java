@@ -18,12 +18,14 @@ import game.ground.VoidPit;
  * Modified by:
  *
  */
-public class Player extends Actor {
+public class Player extends Actor implements IBottomLessVoidPitBehavior{
 
 
     public static final int STARTING_HEALTH = 150;
     public static final int STARTING_STAMINA = 200;
     private static final float STAMINA_RECOVERY_RATE = 0.01f;
+    public static final char DISPLAY_CHAR = '@';
+    private static final String PLAYER_NAME = "The Abstracted One";
 
 
     /**
@@ -33,8 +35,8 @@ public class Player extends Actor {
      * @param displayChar Character to represent the player in the UI
      * @param hitPoints   Player's starting number of hitpoints
      */
-    public Player(String name, char displayChar) {
-        super(name, displayChar, STARTING_HEALTH);
+    public Player() {
+        super(PLAYER_NAME, DISPLAY_CHAR, STARTING_HEALTH);
         this.addCapability(Status.HOSTILE_TO_ENEMY);
 
 
@@ -49,19 +51,16 @@ public class Player extends Actor {
         display.println("HP: "  + String.valueOf(this.getAttribute(BaseActorAttributes.HEALTH)) + "/" + String.valueOf(this.getAttributeMaximum(BaseActorAttributes.HEALTH)));
         display.println("Stamina: "  + String.valueOf(this.getAttribute(BaseActorAttributes.STAMINA)) +  "/" + String.valueOf(this.getAttributeMaximum(BaseActorAttributes.STAMINA)));
 
-        // Handle multi-turn Actions
-        if (lastAction.getNextAction() != null)
-            return lastAction.getNextAction();
-
-
 
         //check if present location is a pit
         // no need to tick over items as game map ticks over them anyway
-        if(map.locationOf(this).getGround().getDisplayChar() == VoidPit.PIT_DISPLAY)
+        if(isLocationBottomLessPit(map.locationOf(this)))
         {
             return new VoidPitGroundMoveAction();
         }
-
+        // Handle multi-turn Actions
+        if (lastAction.getNextAction() != null)
+            return lastAction.getNextAction();
 
 
         //increase stamina on each turn :

@@ -14,9 +14,14 @@ public class VoidPitGroundMoveAction extends Action {
         //set health to zero
         actor.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.UPDATE, 0);
 
-        //the following line will remove the player from the map and the game engine will terminate the game.
+        //the following line will remove the main player from the map and the game engine will terminate the game.
         map.removeActor(actor);
-        return FancyMessage.YOU_DIED;
+
+        if(actor.getDisplayChar() == Player.DISPLAY_CHAR)
+        {
+            return FancyMessage.YOU_DIED;
+        }
+        return null;
     }
 
     @Override

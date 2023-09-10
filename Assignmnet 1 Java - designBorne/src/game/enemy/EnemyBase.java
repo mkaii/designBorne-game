@@ -9,16 +9,14 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.Weapon;
-import game.AttackAction;
-import game.Status;
-import game.WanderBehaviour;
+import game.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class EnemyBase extends Actor {
+public abstract class EnemyBase extends Actor implements IBottomLessVoidPitBehavior {
 
 
 
@@ -40,6 +38,14 @@ public abstract class EnemyBase extends Actor {
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+
+
+        //check if present location is a pit
+        // no need to tick over items as game map ticks over them anyway
+        if(isLocationBottomLessPit(map.locationOf(this)))
+        {
+            return new VoidPitGroundMoveAction();
+        }
 
         //check if the actions have an attack action:
         for(Action action : actions)
