@@ -28,7 +28,7 @@ public class ConsumeRefreshingFlask extends Action {
         }
 
         actor.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, staminaIncrease);
-        return "Refreshing Flask replenished " + actor + " health by " + staminaIncrease;
+        return "Refreshing Flask replenished " + actor + " stamina by " + staminaIncrease;
     }
 
     @Override
