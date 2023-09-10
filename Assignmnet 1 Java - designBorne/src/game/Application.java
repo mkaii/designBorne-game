@@ -107,11 +107,11 @@ public class Application {
 
 
         //add a gate :
-        Gate gate1 = new Gate("Gate", '=', false);
+        Gate gate1 = new Gate();
         gate1.addSampleAction(new MoveActorAction(gameMap2.at(7, 2), "to Burial Ground!"));
 
         //add a gate :
-        Gate gate2 = new Gate("Gate", '=', false);
+        Gate gate2 = new Gate();
         gate2.addSampleAction(new MoveActorAction(gameMap1.at(55, 2), "to Abandoned village!"));
 
         gameMap1.at(30, 12).addItem(gate1);
