@@ -1,33 +1,34 @@
 package game;
 
+import edu.monash.fit2099.engine.actions.Action;
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Ground;
+import edu.monash.fit2099.engine.positions.Location;
 
 import java.util.List;
 
-public class Gate extends Ground {
+public class Gate extends Item {
 
-    public Gate() {
-        super('=');
+    private Action martianAction;
 
+    public Gate(String name, char displayChar, boolean portable) {
+        super(name, displayChar, portable);
     }
 
+    public void addSampleAction(Action newAction){
+        this.martianAction = newAction;
+    }
 
     @Override
-    public boolean canActorEnter(Actor actor) {
-        //only allow for main player
-        if(actor.getDisplayChar() == '@')
-        {
-            List<Item> inventoryItems = actor.getItemInventory();
-            for(Item item : inventoryItems)
-            {
-                if(item.getDisplayChar() == '-')
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public ActionList allowableActions(Location location) {
+        ActionList actions = super.allowableActions(location);
+        actions.add(martianAction);
+        return actions;
     }
+
+
+
 }
