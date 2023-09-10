@@ -12,20 +12,20 @@ import java.util.List;
 
 public class Gate extends Item {
 
-    private Action martianAction;
+    private Action moveAction;
 
     public Gate(String name, char displayChar, boolean portable) {
         super(name, displayChar, portable);
     }
 
     public void addSampleAction(Action newAction){
-        this.martianAction = newAction;
+        this.moveAction = newAction;
     }
 
     @Override
     public ActionList allowableActions(Location location) {
         ActionList actions = super.allowableActions(location);
-        actions.add(martianAction);
+        actions.add(moveAction);
         return actions;
     }
 
