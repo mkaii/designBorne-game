@@ -23,23 +23,19 @@ public class ActivateFocusAction  extends Action {
             if(item.getDisplayChar() == '1')
             {
                 sword = (BroadSword) item;
-                break;
+
+                //this broadsword is in the inventory
+                return sword.activateFocus((Player) actor);
             }
         }
-        // using the actor as the parameter
 
+        return null;
 
-        //this broadsword is in the inventory
-        return sword.activateFocus((Player) actor);
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        if (sword!=null) {
-            return "Activate Focus Mode for BroadSword...valid for " + sword.getFocusTurnsRemaining() + " turns!!";
-        }
-        else {
-            return "Activate Focus Mode for your BroadSword...valid for 5 turns.";
-        }
+
+        return actor + " activates the skill of the broadsword.";
     }
 }
