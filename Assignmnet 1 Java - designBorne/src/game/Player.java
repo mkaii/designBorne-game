@@ -19,7 +19,9 @@ import edu.monash.fit2099.engine.displays.Menu;
  */
 public class Player extends Actor {
 
-    private static final int STARTING_STAMINA = 200;
+
+    public static final int STARTING_HEALTH = 150;
+    public static final int STARTING_STAMINA = 200;
     private static final float STAMINA_RECOVERY_RATE = 0.01f;
 
 
@@ -30,8 +32,8 @@ public class Player extends Actor {
      * @param displayChar Character to represent the player in the UI
      * @param hitPoints   Player's starting number of hitpoints
      */
-    public Player(String name, char displayChar, int hitPoints) {
-        super(name, displayChar, hitPoints);
+    public Player(String name, char displayChar) {
+        super(name, displayChar, STARTING_HEALTH);
         this.addCapability(Status.HOSTILE_TO_ENEMY);
 
 

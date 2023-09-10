@@ -17,6 +17,7 @@ import java.util.Map;
 public class WanderingUndead extends Actor {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
     Key key;
+    HealingVial healingPotion;
 
     public WanderingUndead() {
         super("Wandering Undead", 't', 100);
@@ -26,6 +27,7 @@ public class WanderingUndead extends Actor {
 
         //Wandering undead should have a key to begin with
         key = new Key();
+        healingPotion = new HealingVial();
         addItemToInventory(key);
 
         //ideally the undead should also have attack behavior ??
@@ -97,6 +99,7 @@ public class WanderingUndead extends Actor {
     @Override
     public String unconscious(Actor actor, GameMap map) {
        key.getDropAction(this).execute(this,map);
+       healingPotion.getDropAction(this).execute(this,map);
        return super.unconscious(this, map);
     }
 
