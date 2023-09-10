@@ -3,12 +3,15 @@ package game;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.monash.fit2099.demo.mars.items.MartianItem;
 import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.enemy.HollowMan;
+import game.enemy.WanderingUndead;
+import game.ground.*;
+import game.item.Gate;
 
 /**
  * The main class to start the game.

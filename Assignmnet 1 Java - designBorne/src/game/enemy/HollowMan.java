@@ -1,4 +1,4 @@
-package game;
+package game.enemy;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -9,6 +9,9 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import game.*;
+import game.potions.HealingVial;
+import game.potions.RefreshingFlask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
