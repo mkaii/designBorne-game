@@ -2,6 +2,7 @@ package game;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.Player;
@@ -11,11 +12,14 @@ public class BroadSword extends WeaponItem {
 
 
     private boolean isFocusActive;
-
     private int focusTurnsRemaining;
 
+    private static final int ORIGINAL_DAMAGE = 110;
+    private static final int ORIGINAL_HIT_RATE = 80;
+    private static final char DISPLAY = '1';
+
     public BroadSword() {
-        super("BroadSword", '1', 110, "slashes", 80);
+        super("BroadSword", DISPLAY, ORIGINAL_DAMAGE, "slashes", ORIGINAL_HIT_RATE);
         isFocusActive = false;
         focusTurnsRemaining = 0;
 
@@ -50,7 +54,7 @@ public class BroadSword extends WeaponItem {
         if (isFocusActive) {
             isFocusActive = false;
             updateDamageMultiplier(1.0f); // Reset damage multiplier to 1.0f
-            updateHitRate(80); // Reset hit rate to 80%
+            updateHitRate(ORIGINAL_HIT_RATE); // Reset hit rate to 80%
         }
     }
 
@@ -72,5 +76,12 @@ public class BroadSword extends WeaponItem {
             }
         }
         //reduce stamina is not required as it should only be reduced during activating focus
+    }
+
+    @Override
+    public DropAction getDropAction(Actor actor) {
+        if(portable)
+            return new BroadSwordDropAction(this);
+        return null;
     }
 }
