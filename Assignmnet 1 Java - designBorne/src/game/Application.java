@@ -57,7 +57,7 @@ public class Application {
         //add hollow man in Map 2
         //add main player
         HollowMan hollowMan1 = new HollowMan();
-        world.addPlayer(hollowMan1, gameMap2.at(1, 1));
+        world.addPlayer(hollowMan1, gameMap2.at(1, 5));
 
 
         //--------------------------------------------------
@@ -110,11 +110,11 @@ public class Application {
 
         //add a gate :
         Gate gate1 = new Gate();
-        gate1.addSampleAction(new MoveActorAction(gameMap2.at(7, 2), "to Burial Ground!"));
+        gate1.addSampleAction(new MoveActorAction(gameMap2.at(1, 1), "to Burial Ground!"));
 
         //add a gate :
         Gate gate2 = new Gate();
-        gate2.addSampleAction(new MoveActorAction(gameMap1.at(55, 2), "to Abandoned village!"));
+        gate2.addSampleAction(new MoveActorAction(gameMap1.at(30, 12), "to Abandoned village!"));
 
         gameMap1.at(30, 12).addItem(gate1);
 
