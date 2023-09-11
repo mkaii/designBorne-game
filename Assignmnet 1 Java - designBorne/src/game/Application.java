@@ -11,6 +11,8 @@ import edu.monash.fit2099.engine.positions.World;
 import game.enemy.HollowMan;
 import game.enemy.WanderingUndead;
 import game.ground.*;
+import game.ground.graveyard.AbandonedVillageGraveYard;
+import game.ground.graveyard.BurialGroundGraveyard;
 import game.item.Gate;
 
 /**
@@ -27,7 +29,7 @@ public class Application {
         World world = new World(new Display());
 
         FancyGroundFactory groundFactory2 = new FancyGroundFactory(new Dirt(),
-                new Wall(), new Floor(), new Puddle(), new VoidPit(), new Graveyard());
+                new Wall(), new Floor(), new Puddle(), new VoidPit(), new BurialGroundGraveyard());
 
 
 
@@ -41,7 +43,7 @@ public class Application {
                 ".........++++~.....#_____#.........+++++",
                 "..........+++......#_____#........++++++",
                 "..........+++......###_###.......~~+++++",
-                "..........~~.....................~~...++",
+                "..n.......~~.....................~~...++",
                 "..........~~~..................++.......",
                 "...........~~....~~~~~.........++.......",
                 "......~~....++..~~~~~~~~~~~......~......",
@@ -62,12 +64,12 @@ public class Application {
 
 
         FancyGroundFactory groundFactory1 = new FancyGroundFactory(new Dirt(),
-                new Wall(), new Floor(), new Puddle(), new VoidPit(), new Graveyard());
+                new Wall(), new Floor(), new Puddle(), new VoidPit(), new AbandonedVillageGraveYard());
         List<String> abandonedVillage = Arrays.asList(
-                "...........................................................",
+                ".....................n.....................................",
                 "...#######...................................+.............",
                 "...#__.....................................................",
-                "...#..___#.................................................",
+                "...#..___#........................................n........",
                 "...###.###................#######..........................",
                 "..........................#_____#..........................",
                 "........~~........+.......#_____#..........................",
