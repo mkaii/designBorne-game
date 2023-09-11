@@ -57,13 +57,13 @@ public class Gate extends Item {
     @Override
     public ActionList allowableActions(Location location) {
         ActionList actions = super.allowableActions(location);
-        actions.add(new UnLockAction());
         if(this.isUnLocked()) {
             actions.add(moveAction);
         }
+        else {
+            actions.add(new UnLockAction());
+        }
         return actions;
     }
-
-
 
 }

@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.ground.VoidPit;
 
 /**
@@ -28,6 +29,10 @@ public class Player extends Actor implements IBottomLessVoidPitBehavior{
     private static final String PLAYER_NAME = "The Abstracted One";
 
 
+    private static final int LIMB_DAMAGE = 15;
+    private static final int LIMB_HIT_RATE = 80;
+
+
     /**
      * Constructor.
      *
@@ -41,6 +46,12 @@ public class Player extends Actor implements IBottomLessVoidPitBehavior{
 
 
         this.addAttribute(BaseActorAttributes.STAMINA, new BaseActorAttribute(STARTING_STAMINA));
+    }
+
+    @Override
+    public IntrinsicWeapon getIntrinsicWeapon() {
+        IntrinsicWeapon baseIntrinsicWeapon = super.getIntrinsicWeapon();
+       return new IntrinsicWeapon(LIMB_DAMAGE,baseIntrinsicWeapon.verb(),LIMB_HIT_RATE);
     }
 
     @Override
