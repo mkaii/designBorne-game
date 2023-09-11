@@ -34,7 +34,7 @@ public class ConsumeRefreshingFlask extends Action {
 
     @Override
     public String menuDescription(Actor actor) {
-        return "consume Refreshing flask!";
+        return actor  + "consumes Refreshing flask!";
     }
 
 
