@@ -42,6 +42,6 @@ public class UnLockAction extends Action {
 
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " unlocks Gate and Proceeds to Burial Ground.";
+        return actor + " attempts to unlock the Gate.";
     }
 }
