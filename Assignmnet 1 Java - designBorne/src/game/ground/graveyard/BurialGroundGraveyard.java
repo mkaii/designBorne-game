@@ -24,7 +24,13 @@ public class BurialGroundGraveyard extends Ground {
         if (random.nextFloat() <= 0.10) {
             // Spawn a WanderingUndead directly on the graveyard
             HollowMan hollowMan = new HollowMan();
-            location.addActor(hollowMan);
+            try {
+                location.addActor(hollowMan);
+            }
+            catch (Exception ignored)
+            {
+                //do nothing
+            }
         }
     }
 

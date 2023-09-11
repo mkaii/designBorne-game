@@ -22,7 +22,13 @@ public class AbandonedVillageGraveYard extends Ground {
         if (random.nextFloat() <= 0.25) {
             // Spawn a WanderingUndead directly on the graveyard
             WanderingUndead wanderingUndead = new WanderingUndead();
-            location.addActor(wanderingUndead);
+            try {
+                location.addActor(wanderingUndead);
+            }
+            catch (Exception ignored)
+            {
+                //do nothing
+            }
         }
     }
 }
