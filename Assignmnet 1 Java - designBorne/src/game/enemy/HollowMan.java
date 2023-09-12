@@ -3,44 +3,29 @@ package game.enemy;
 import game.item.potions.HealingVial;
 import game.item.potions.RefreshingFlask;
 
+/**
+ * A class representing a Hollow Soldier enemy.
+ */
 public class HollowMan extends EnemyBase {
 
-    HealingVial healingPotion;
-    RefreshingFlask refreshingFlask;
-
-
+    private HealingVial healingPotion;
+    private RefreshingFlask refreshingFlask;
 
     /**
-     * The constructor of the Actor class.
-     *
-     * @param name        the name of the Actor
-     * @param displayChar the character that will represent the Actor in the display
-     * @param hitPoints   the Actor's starting hit points
+     * Constructor for creating a Hollow Soldier.
      */
     public HollowMan() {
         super("Hollow Soldier", '&', 200);
 
-        //default damage should be 50
+        // Default damage should be 50
         updateDamageMultiplier(10);
 
-
-        //Wandering undead should have a key and vials to begin with to begin with
-
+        // Hollow Soldiers should have a healing vial and a refreshing flask in their inventory
         healingPotion = new HealingVial();
         refreshingFlask = new RefreshingFlask();
 
-        //todo : add to hollow mans inventory :
+        // Add items to the Hollow Soldier's inventory
         addItemToInventory(healingPotion);
         addItemToInventory(refreshingFlask);
-
-
     }
-
-
-
-
-
-
-
-
 }

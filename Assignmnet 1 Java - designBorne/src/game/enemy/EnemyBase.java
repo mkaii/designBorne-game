@@ -16,19 +16,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * An abstract base class for enemy actors in the game.
+ */
 public abstract class EnemyBase extends Actor implements IBottomLessVoidPitBehavior {
-
-
 
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
 
-
     /**
-     * The constructor of the Actor class.
+     * Constructor for creating an enemy actor.
      *
-     * @param name        the name of the Actor
-     * @param displayChar the character that will represent the Actor in the display
-     * @param hitPoints   the Actor's starting hit points
+     * @param name        the name of the enemy actor
+     * @param displayChar the character that represents the enemy actor in the display
+     * @param hitPoints   the enemy actor's starting hit points
      */
     public EnemyBase(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
@@ -39,17 +39,13 @@ public abstract class EnemyBase extends Actor implements IBottomLessVoidPitBehav
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 
-
-        //check if present location is a pit
-        // no need to tick over items as game map ticks over them anyway
-        if(isLocationBottomLessPit(map.locationOf(this)))
-        {
+        // Check if the current location is a pit
+        if (isLocationBottomLessPit(map.locationOf(this))) {
             return new VoidPitGroundMoveAction();
         }
 
-        //check if the actions have an attack action:
-        for(Action action : actions)
-        {
+        // Check if there is an attack action in the list of actions
+        for (Action action : actions) {
             if (action instanceof AttackAction) {
                 return action;
             }
@@ -57,45 +53,41 @@ public abstract class EnemyBase extends Actor implements IBottomLessVoidPitBehav
 
         for (Behaviour behaviour : behaviours.values()) {
             Action action = behaviour.getAction(this, map);
-            if(action != null)
+            if (action != null) {
                 return action;
+            }
         }
         return new DoNothingAction();
     }
 
-
     /**
-     * The wandering undead can be attacked by any actor that has the HOSTILE_TO_ENEMY capability
+     * Defines the allowable actions for the enemy actor.
      *
-     * @param otherActor the Actor that might be performing attack
-     * @param direction  String representing the direction of the other Actor
-     * @param map        current GameMap
-     * @return
+     * @param otherActor the actor that might be performing an attack
+     * @param direction  the direction in which the other actor is located
+     * @param map        the current GameMap
+     * @return a list of allowable actions for the enemy actor
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
-        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
+        if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 
             boolean weaponFound = false;
-            //set the attack action with a weapon if it is there in the inventory
-            for(Item item : otherActor.getItemInventory())
-            {
-                if(item.getDisplayChar() == '1')
-                {
+            // Set the attack action with a weapon if it is in the inventory
+            for (Item item : otherActor.getItemInventory()) {
+                if (item.getDisplayChar() == '1') {
                     actions.add(new AttackAction(this, direction, (Weapon) item));
                     weaponFound = true;
                 }
             }
 
-            if(!weaponFound) {
+            if (!weaponFound) {
                 actions.add(new AttackAction(this, direction));
             }
         }
         return actions;
     }
-
-
 
     @Override
     public String unconscious(Actor actor, GameMap map) {

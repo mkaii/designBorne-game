@@ -5,32 +5,33 @@ import edu.monash.fit2099.engine.items.DropAction;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 
+/**
+ * A class representing the action of dropping a broadsword item.
+ */
 public class BroadSwordDropAction extends DropAction {
 
     private final BroadSword broadSword;
 
     /**
-     * Constructor.
+     * Constructor for the BroadSwordDropAction.
      *
-     * @param item the item to drop
+     * @param item The broadsword item to drop.
      */
     public BroadSwordDropAction(Item item) {
         super(item);
         this.broadSword = (BroadSword) item;
-
     }
 
-
     /**
-     * When an item is dropped, remove the item from the actor's inventory and add it to the current location of the actor.
+     * Executes the action of dropping a broadsword item and deactivates its focus ability.
      *
      * @param actor The actor performing the action.
-     * @param map The map the actor is on.
-     * @return a string describing who has dropped which item.
+     * @param map   The map the actor is on.
+     * @return A string describing who has dropped which item.
      */
     @Override
     public String execute(Actor actor, GameMap map) {
         broadSword.deactivateFocus();
-        return super.execute(actor,map);
+        return super.execute(actor, map);
     }
 }
